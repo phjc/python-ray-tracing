@@ -49,7 +49,7 @@ def phong(luzes, material, raio, normal, pontoIntersecao, objetos, depth):
                         KS.y * IL.y * (cossenoRV ** COEF),
                         KS.z * IL.z * (cossenoRV ** COEF))
 
-        if(material.ns > 0 & depth < 1): ##economizar processamento em não-refletivos ou na terceira recursao
+        if(material.ns > 0 and depth < 1): ##economizar processamento em não-refletivos ou na terceira recursao
           LReflexo = N.mult_escalar(2 * N.produto_escalar(L)).__sub__(L)
           if LReflexo.norma() != 0:
               pontoInt = Ponto(pontoIntersecao.x, pontoIntersecao.y, pontoIntersecao.z)
@@ -64,14 +64,18 @@ def phong(luzes, material, raio, normal, pontoIntersecao, objetos, depth):
                               menor_t = t
                               reflexivaLuz = phong(luzes, resultado[4], raioNovo, resultado[2], resultado[3], objetos, depth) # material = resultado[4], normal = resultado[2], pontoIntersecao = resultado[3]
         
-        ##    def refract(ray, normal, ref_idx):
-        ## cos_i = -normal.prod_escalar(ray.direcao)
-        ## sin_t2 = ref_idx**2 * (1.0 - cos_i**2)
-        ## if sin_t2 > 1.0:
-        ## return None  # Total internal reflection
+        ##    def refract(ray, normal, ref_idx):                ##Segue a Lei de Snell: 
+        ## cos_i = -normal.prod_escalar(ray.direcao)            ##sin⁡(θ1)/sin⁡(θ2)=n2/n1
+        ## sin_t2 = ref_idx**2 * (1.0 - cos_i**2)               ##sin(θ2​)/sin(θ1​)​=n1​/n2​​
+        ## if sin_t2 > 1.0:                                     ##Onde θ1​ e θ2​ = ângulos de incidência e refração, respectivamente,
+        ## return None  # Total internal reflection             ##e n1n1​ e n2n2​ são os índices de refração dos materiais envolvidos.
         ## cos_t = np.sqrt(1.0 - sin_t2)
         ## refracted = ray.direcao * ref_idx + normal * (ref_idx * cos_i - cos_t)
         
+                                        
+                
+
+
 
         
         
